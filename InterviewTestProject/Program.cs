@@ -1,5 +1,6 @@
 using InterviewTestProject.MappingProfiles;
 using InterviewTestProject.Services;
+using InterviewTestProject.Services.Resources;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper( typeof(CovidMappings) );
 builder.Services.AddHttpClient();
+builder.Services.AddScoped<ICovidHttpClient, CovidHttpClient>();
 builder.Services.AddScoped<ICovidService, CovidService>();
 
 
