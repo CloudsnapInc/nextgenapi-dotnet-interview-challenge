@@ -5,39 +5,37 @@ using System.Data.SQLite;
 namespace InterviewTestProject.Controllers;
 
 [ApiController]
-[Route("codereviews")]
-public class CodeReviewController : ControllerBase
+[Route("ratings")]
+public class RatingController : ControllerBase
 {
-    private readonly ILogger<CodeReviewController> _logger;
+    private readonly ILogger<RatingController> _logger;
 
-    public CodeReviewController(ILogger<CodeReviewController> logger)
+    public RatingController(ILogger<RatingController> logger)
     {
         _logger = logger;
     }
 
     [HttpGet]
-    public async Task<IEnumerable<CodeReview>> Get()
+    public async Task<IEnumerable<Rating>> Get()
     {
         var connection = new SQLiteConnection("Data Source=database.db;Version=3;Compress=True;");
         connection.Open();
 
         SQLiteCommand command = connection.CreateCommand();
-        command.CommandText = "SELECT Id, Rate, Info FROM CodeReviews";
+        command.CommandText = "SELECT Id, Rate, Info FROM Ratings";
         SQLiteDataReader reader = command.ExecuteReader();
 
-        var response = new List<CodeReview>();
+        var response = new List<Rating>();
 
         while (reader.Read())
         {
-            response.Add(new CodeReview()
+            response.Add(new Rating()
             {
                 Id = (long)reader["Id"],
                 Rate = (int)reader["Rate"],
                 Info = reader["Info"].ToString()
             });
         }
-
-        connection.Close();
 
         return response;
     }
