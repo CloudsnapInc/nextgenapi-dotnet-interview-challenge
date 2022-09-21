@@ -4,5 +4,5 @@ namespace InterviewTestProject.Services.Resources;
 
 public interface ICovidHttpClient
 {
-    public Task<CovidApiResponseDto> fetchSummary();
+     Task<CovidApiResponseDto> fetchSummary();
 }

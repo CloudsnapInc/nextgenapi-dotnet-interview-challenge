@@ -4,6 +4,6 @@ namespace InterviewTestProject.Services;
 
 public interface ICovidService
 {
-    public Task<CovidApiResponseDto> fetchAllCountries();
+    Task<CovidApiResponseDto> fetchAllCountries();
     
 }
