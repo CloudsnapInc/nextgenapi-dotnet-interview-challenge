@@ -34,7 +34,7 @@ public class CovidHttpClient : ICovidHttpClient
         return countries;
     }
 
-    public async Task<List<CovidApiResponseCountryDto>> fetchCountriesByTask()
+    public async Task<List<CovidApiResponseCountryDto>> fetchCountriesFiltered()
     {
         /// TODO
         throw new NotImplementedException();
