@@ -9,6 +9,12 @@ Note: you can find endpoint in the /rating ( Controllers/RatingController.cs )
 ## Task 2 - finish implementation of covid route
 
 You are given codebase which fetch countries statistics. 
-Currently the endpoint does not support any filtering and ordering. Please complete this functionality into the codebase.
+Currently the endpoint is not fully functional. 
+Please complete following functionality into the codebase:
+
+* Support for pagination ( offset, limit )
+* Support for ordering ( by, order )
+* Support for filtering ( min/max newRecovered )
+
 
 Note: you can find endpoint in the /covid ( Controllers/CovidController.cs )
