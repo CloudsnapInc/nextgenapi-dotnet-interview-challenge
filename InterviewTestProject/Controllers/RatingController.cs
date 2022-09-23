@@ -1,5 +1,6 @@
 using InterviewTestProject.Domain;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.Common;
 using System.Data.SQLite;
 
 namespace InterviewTestProject.Controllers;
@@ -16,14 +17,14 @@ public class RatingController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<Rating>> Get()
+    public async Task<IEnumerable<Rating>> Get(int minRate)
     {
         var connection = new SQLiteConnection("Data Source=database.db;Version=3;Compress=True;");
         connection.Open();
 
         SQLiteCommand command = connection.CreateCommand();
-        command.CommandText = "SELECT Id, Rate, Info FROM Ratings";
-        SQLiteDataReader reader = command.ExecuteReader();
+        command.CommandText = "SELECT Id, Rate, Info FROM Ratings WHERE Rate >= " + minRate.ToString();
+        DbDataReader reader = command.ExecuteReader();
 
         var response = new List<Rating>();
 
