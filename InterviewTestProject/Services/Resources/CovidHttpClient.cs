@@ -16,7 +16,7 @@ public class CovidHttpClient : ICovidHttpClient
         _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
     }
     
-    public async Task<CovidApiResponseDto> fetchSummary()
+    public async Task<CovidApiResponseDto> FetchSummary()
     {
         var httpClient = _httpClientFactory.CreateClient();
 
@@ -34,10 +34,5 @@ public class CovidHttpClient : ICovidHttpClient
         return countries;
     }
 
-    public async Task<List<CovidApiResponseCountryDto>> fetchCountriesFiltered()
-    {
-        /// TODO
-        throw new NotImplementedException();
-    }
 
 }
