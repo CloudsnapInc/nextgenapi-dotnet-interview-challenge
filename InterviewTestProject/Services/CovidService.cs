@@ -17,12 +17,13 @@ public class CovidService : ICovidService
         _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
     }
     
-    public async Task<CovidApiResponseDto> fetchAllCountries()
+    public async Task<List<CovidApiResponseCountryDto>> FetchAllCountries()
     {
-        return await _covidHttpClient.fetchSummary();
+        var apiData = await _covidHttpClient.FetchSummary();
+        return apiData.Countries;
     }
 
-    public async Task<List<CovidApiResponseCountryDto>> fetchCountriesByTask()
+    public async Task<List<CovidApiResponseCountryDto>> FetchCountries()
     {
         /// TODO
         throw new NotImplementedException();
