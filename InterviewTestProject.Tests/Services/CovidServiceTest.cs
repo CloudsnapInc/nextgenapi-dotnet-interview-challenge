@@ -64,28 +64,28 @@ public class CovidServiceTest
     }
     
     [Fact]
-    public async Task TestFetchSummary()
+    public async Task TestFetchCountries_All()
     {
         /// arrange
         var mockCountries = GenerateCountrySummaryMockData();
         
         var httpClientMock = new Mock<ICovidHttpClient>();
-        httpClientMock.Setup(p => p.fetchSummary()).ReturnsAsync(mockCountries);
+        httpClientMock.Setup(p => p.FetchSummary()).ReturnsAsync(mockCountries);
 
         var covidService = new CovidService(httpClientMock.Object);
         
         /// act
-        var result = await covidService.fetchAllCountries();
+        var result = await covidService.FetchAllCountries();
         
         /// assert
-        Assert.Equal(3, result.Countries.Count);
-        Assert.Equal("WL", result.Countries[0].CountryCode);
-        Assert.Equal("OL", result.Countries[1].CountryCode);
-        Assert.Equal("ML", result.Countries[2].CountryCode);
+        Assert.Equal(3, result.Count);
+        Assert.Equal("WL", result[0].CountryCode);
+        Assert.Equal("OL", result[1].CountryCode);
+        Assert.Equal("ML", result[2].CountryCode);
     }
     
     [Fact]
-    public void TestFetchCountriesFiltered()
+    public void TestFetchCountries_OffsetLimit()
     {
         //// TODO
     }

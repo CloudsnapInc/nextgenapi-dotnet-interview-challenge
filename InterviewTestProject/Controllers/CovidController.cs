@@ -27,9 +27,9 @@ public class CovidController : ControllerBase
     [HttpGet]
     public async Task<CovidQueryResponse> Get([FromQuery] CovidQueryParameters parameters)
     {
-        var allCountries = await _covidService.fetchAllCountries();
+        var allCountries = await _covidService.FetchAllCountries();
         
-        var countries = _mapper.Map<List<CovidQueryCountryResponse>>(allCountries.Countries);
+        var countries = _mapper.Map<List<CovidQueryCountryResponse>>(allCountries);
         
         return new CovidQueryResponse(parameters, countries);
     }
