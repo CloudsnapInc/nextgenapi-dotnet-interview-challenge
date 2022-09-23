@@ -70,12 +70,12 @@ public class CovidServiceTest
         var mockCountries = GenerateCountrySummaryMockData();
         
         var httpClientMock = new Mock<ICovidHttpClient>();
-        httpClientMock.Setup(p => p.fetchSummary()).ReturnsAsync(mockCountries);
+        httpClientMock.Setup(p => p.FetchSummary()).ReturnsAsync(mockCountries);
 
         var covidService = new CovidService(httpClientMock.Object);
         
         /// act
-        var result = await covidService.fetchAllCountries();
+        var result = await covidService.FetchAllCountries();
         
         /// assert
         Assert.Equal(3, result.Countries.Count);
