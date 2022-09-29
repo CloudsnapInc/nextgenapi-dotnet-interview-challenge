@@ -17,13 +17,13 @@ public class RatingController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<Rating>> Get(int minRate)
+    public async Task<IEnumerable<Rating>> Get(string info)
     {
         var connection = new SQLiteConnection("Data Source=database.db;Version=3;Compress=True;");
         connection.Open();
 
         SQLiteCommand command = connection.CreateCommand();
-        command.CommandText = "SELECT Id, Rate, Info FROM Ratings WHERE Rate >= " + minRate.ToString();
+        command.CommandText = string.Format("SELECT Id, Rate, Info FROM Ratings WHERE Info LIKE '%{0}%'", info);
         DbDataReader reader = command.ExecuteReader();
 
         var response = new List<Rating>();
