@@ -2,25 +2,29 @@ using InterviewTestProject.Domain.Covid.ApiResponse;
 using InterviewTestProject.Services;
 using InterviewTestProject.Services.Resources;
 using Moq;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Xunit;
 
-namespace InterviewTestProject.Tests.Services;
-
-public class CovidServiceTest
+namespace InterviewTestProject.Tests.Services
 {
-    protected CovidApiResponseDto GenerateCountrySummaryMockData()
+
+    public class CovidServiceTest
     {
-        var ret = new CovidApiResponseDto()
+        protected CovidApiResponseDto GenerateCountrySummaryMockData()
         {
-            Global = new CovidApiResponseGlobalDto()
+            var ret = new CovidApiResponseDto()
             {
-                NewConfirmed = 100,
-                TotalConfirmed = 800,
-                NewDeaths = 20,
-                NewRecovered = 40,
-                TotalDeaths = 90,
-                TotalRecovered = 333
-            },
-            Countries = new List<CovidApiResponseCountryDto>()
+                Global = new CovidApiResponseGlobalDto()
+                {
+                    NewConfirmed = 100,
+                    TotalConfirmed = 800,
+                    NewDeaths = 20,
+                    NewRecovered = 40,
+                    TotalDeaths = 90,
+                    TotalRecovered = 333
+                },
+                Countries = new List<CovidApiResponseCountryDto>()
             {
                 new CovidApiResponseCountryDto()
                 {
@@ -59,37 +63,38 @@ public class CovidServiceTest
                     TotalRecovered = 45,
                 }
             }
-        };
-        return ret;
+            };
+            return ret;
+        }
+
+        [Fact]
+        public async Task TestFetchCountries_All()
+        {
+            /// arrange
+            var mockCountries = GenerateCountrySummaryMockData();
+
+            var httpClientMock = new Mock<ICovidHttpClient>();
+            httpClientMock.Setup(p => p.FetchSummary()).ReturnsAsync(mockCountries);
+
+            var covidService = new CovidService(httpClientMock.Object);
+
+            /// act
+            var result = await covidService.FetchAllCountries();
+
+            /// assert
+            Assert.Equal(3, result.Count);
+            Assert.Equal("WL", result[0].CountryCode);
+            Assert.Equal("OL", result[1].CountryCode);
+            Assert.Equal("ML", result[2].CountryCode);
+        }
+
+        [Fact]
+        public void TestFetchCountries_OffsetLimit()
+        {
+            //// TODO
+        }
+
+
+
     }
-    
-    [Fact]
-    public async Task TestFetchCountries_All()
-    {
-        /// arrange
-        var mockCountries = GenerateCountrySummaryMockData();
-        
-        var httpClientMock = new Mock<ICovidHttpClient>();
-        httpClientMock.Setup(p => p.FetchSummary()).ReturnsAsync(mockCountries);
-
-        var covidService = new CovidService(httpClientMock.Object);
-        
-        /// act
-        var result = await covidService.FetchAllCountries();
-        
-        /// assert
-        Assert.Equal(3, result.Count);
-        Assert.Equal("WL", result[0].CountryCode);
-        Assert.Equal("OL", result[1].CountryCode);
-        Assert.Equal("ML", result[2].CountryCode);
-    }
-    
-    [Fact]
-    public void TestFetchCountries_OffsetLimit()
-    {
-        //// TODO
-    }
-
-
-
 }
