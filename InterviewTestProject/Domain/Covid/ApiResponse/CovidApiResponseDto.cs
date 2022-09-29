@@ -1,7 +1,12 @@
-namespace InterviewTestProject.Domain.Covid.ApiResponse;
+using System.Collections.Generic;
 
-public class CovidApiResponseDto
+namespace InterviewTestProject.Domain.Covid.ApiResponse
+
 {
-    public CovidApiResponseGlobalDto Global { get; set; }
-    public List<CovidApiResponseCountryDto> Countries { get; set; }
+
+    public class CovidApiResponseDto
+    {
+        public CovidApiResponseGlobalDto Global { get; set; }
+        public List<CovidApiResponseCountryDto> Countries { get; set; }
+    }
 }

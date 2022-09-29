@@ -1,19 +1,22 @@
 using InterviewTestProject.Domain.Covid.QueryParameters;
+using System.Collections.Generic;
 
-namespace InterviewTestProject.Domain.Covid.QueryResponse;
-
-public class CovidQueryResponse
+namespace InterviewTestProject.Domain.Covid.QueryResponse
 {
-    public CovidQueryParameters Parameters { get; }
-    public List<CovidQueryCountryResponse> Countries { get; }
 
-    public CovidQueryResponse(
-                CovidQueryParameters parameters,
-                List<CovidQueryCountryResponse> countries
-    )
+    public class CovidQueryResponse
     {
-        this.Parameters = parameters;
-        this.Countries = countries;
+        public CovidQueryParameters Parameters { get; }
+        public List<CovidQueryCountryResponse> Countries { get; }
+
+        public CovidQueryResponse(
+                    CovidQueryParameters parameters,
+                    List<CovidQueryCountryResponse> countries
+        )
+        {
+            this.Parameters = parameters;
+            this.Countries = countries;
+        }
+
     }
-        
 }

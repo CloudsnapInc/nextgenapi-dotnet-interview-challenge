@@ -1,38 +1,43 @@
+using System;
+using System.Net.Http;
 using System.Text.Json;
+using System.Threading.Tasks;
 using InterviewTestProject.Domain.Covid.ApiResponse;
 
-namespace InterviewTestProject.Services.Resources;
-
-public class CovidHttpClient : ICovidHttpClient
+namespace InterviewTestProject.Services.Resources
 {
-    private readonly IHttpClientFactory _httpClientFactory;
-    private readonly JsonSerializerOptions _options;
-    
-    public CovidHttpClient(
-        IHttpClientFactory httpClientFactory)
+
+    public class CovidHttpClient : ICovidHttpClient
     {
-        this._httpClientFactory = httpClientFactory;
-        
-        _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-    }
-    
-    public async Task<CovidApiResponseDto> FetchSummary()
-    {
-        var httpClient = _httpClientFactory.CreateClient();
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly JsonSerializerOptions _options;
 
-        using var response = await httpClient.GetAsync("https://api.covid19api.com/summary", HttpCompletionOption.ResponseHeadersRead);
-
-        response.EnsureSuccessStatusCode();
-        var stream = await response.Content.ReadAsStreamAsync();
-        var countries = await JsonSerializer.DeserializeAsync<CovidApiResponseDto>(stream, _options);
-
-        if ( countries is null )
+        public CovidHttpClient(
+            IHttpClientFactory httpClientFactory)
         {
-            throw new FormatException("Cannot parse data from COVID API");
+            this._httpClientFactory = httpClientFactory;
+
+            _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         }
 
-        return countries;
+        public async Task<CovidApiResponseDto> FetchSummary()
+        {
+            var httpClient = _httpClientFactory.CreateClient();
+
+            using var response = await httpClient.GetAsync("https://api.covid19api.com/summary", HttpCompletionOption.ResponseHeadersRead);
+
+            response.EnsureSuccessStatusCode();
+            var stream = await response.Content.ReadAsStreamAsync();
+            var countries = await JsonSerializer.DeserializeAsync<CovidApiResponseDto>(stream, _options);
+
+            if (countries is null)
+            {
+                throw new FormatException("Cannot parse data from COVID API");
+            }
+
+            return countries;
+        }
+
+
     }
-
-
 }

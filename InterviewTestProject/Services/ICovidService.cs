@@ -1,9 +1,13 @@
 using InterviewTestProject.Domain.Covid.ApiResponse;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace InterviewTestProject.Services;
-
-public interface ICovidService
+namespace InterviewTestProject.Services
 {
-    Task<List<CovidApiResponseCountryDto>> FetchAllCountries();
-    
+
+    public interface ICovidService
+    {
+        Task<List<CovidApiResponseCountryDto>> FetchAllCountries();
+
+    }
 }

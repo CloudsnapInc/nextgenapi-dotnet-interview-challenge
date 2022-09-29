@@ -1,8 +1,11 @@
 using InterviewTestProject.Domain.Covid.ApiResponse;
+using System.Threading.Tasks;
 
-namespace InterviewTestProject.Services.Resources;
-
-public interface ICovidHttpClient
+namespace InterviewTestProject.Services.Resources
 {
-     Task<CovidApiResponseDto> FetchSummary();
+
+    public interface ICovidHttpClient
+    {
+        Task<CovidApiResponseDto> FetchSummary();
+    }
 }

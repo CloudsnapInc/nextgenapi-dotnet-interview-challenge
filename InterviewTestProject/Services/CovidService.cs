@@ -1,32 +1,37 @@
+using System;
+using System.Collections.Generic;
 using System.Text.Json;
+using System.Threading.Tasks;
 using InterviewTestProject.Domain.Covid.ApiResponse;
 using InterviewTestProject.Services.Resources;
 
-namespace InterviewTestProject.Services;
-
-public class CovidService : ICovidService
+namespace InterviewTestProject.Services
 {
-    private readonly ICovidHttpClient _covidHttpClient;
-    private readonly JsonSerializerOptions _options;
-    
-    public CovidService(
-        ICovidHttpClient covidHttpClient)
-    {
-        this._covidHttpClient = covidHttpClient;
-        
-        _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-    }
-    
-    public async Task<List<CovidApiResponseCountryDto>> FetchAllCountries()
-    {
-        var apiData = await _covidHttpClient.FetchSummary();
-        return apiData.Countries;
-    }
 
-    public async Task<List<CovidApiResponseCountryDto>> FetchCountries()
+    public class CovidService : ICovidService
     {
-        /// TODO
-        throw new NotImplementedException();
-    }
+        private readonly ICovidHttpClient _covidHttpClient;
+        private readonly JsonSerializerOptions _options;
 
+        public CovidService(
+            ICovidHttpClient covidHttpClient)
+        {
+            this._covidHttpClient = covidHttpClient;
+
+            _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+        }
+
+        public async Task<List<CovidApiResponseCountryDto>> FetchAllCountries()
+        {
+            var apiData = await _covidHttpClient.FetchSummary();
+            return apiData.Countries;
+        }
+
+        public async Task<List<CovidApiResponseCountryDto>> FetchCountries()
+        {
+            /// TODO
+            throw new NotImplementedException();
+        }
+
+    }
 }
