@@ -3,16 +3,9 @@ using InterviewTestProject.Services;
 using InterviewTestProject.Services.Resources;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace InterviewTestProject
 {
@@ -32,7 +25,7 @@ namespace InterviewTestProject
             services.AddSwaggerGen();
             services.AddHttpClient();
             services.AddAutoMapper(typeof(CovidMappings));
-            services.AddScoped<ICovidHttpClient, CovidHttpClient>();
+            services.AddScoped<ICovidHttpClient, MockCovidHttpClient>();
             services.AddScoped<ICovidService, CovidService>();
         }
 

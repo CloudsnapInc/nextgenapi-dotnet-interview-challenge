@@ -14,6 +14,7 @@ Please complete following functionality into the codebase:
 
 * Support for pagination ( offset, limit )
 * Support for ordering ( by, order )
+* Make sure your solution is properly tested
 
 
 Note: you can find endpoint in the /covid ( Controllers/CovidController.cs )
